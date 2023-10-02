@@ -93,7 +93,6 @@ class LineFollowingEnv(Supervisor, gym.Env):
         robot = self.getSelf()
         self.state = np.array([self.__ground_sensors[0].getValue(), self.__ground_sensors[1].getValue(), self.__ground_sensors[2].getValue()])
 
-        # write me a reward function for the sensors where the center sensor should be below the threshold
         if self.state[2] > self.sensor_threshold:
             reward = -2
         else:
@@ -103,9 +102,7 @@ class LineFollowingEnv(Supervisor, gym.Env):
         
         time_penalty = 1
         reward -= time_penalty
-        
-    
-        
+                
         speed_penalty = 3 # Adjust the penalty magnitude as needed
         reward -= speed_penalty * (self.max_speed - min(self.__wheels[0].getVelocity(), self.__wheels[1].getVelocity()))
         
@@ -114,7 +111,6 @@ class LineFollowingEnv(Supervisor, gym.Env):
         if self.prev_action is not None:
             action_difference = np.abs(action - self.prev_action).sum()
             reward -= smoother_motion_penalty * action_difference
-        #print (int(self.state[0])," ",int(self.state[1])," ",int(self.state[2]))
 
         #if self.state[0] > 900 and self.state[2] > 900:
            # reward = 0
