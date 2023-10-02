@@ -100,10 +100,10 @@ class LineFollowingEnv(Supervisor, gym.Env):
 
         done = False
         
-        time_penalty = 1
+        time_penalty = 0.1
         reward -= time_penalty
                 
-        speed_penalty = 3 # Adjust the penalty magnitude as needed
+        speed_penalty = 0.1 # Adjust the penalty magnitude as needed
         reward -= speed_penalty * (self.max_speed - min(self.__wheels[0].getVelocity(), self.__wheels[1].getVelocity()))
         
         # Calculate smoother motion penalty
